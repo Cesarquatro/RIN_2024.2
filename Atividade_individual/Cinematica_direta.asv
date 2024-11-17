@@ -1,0 +1,7 @@
+clc; clear; close all;
+%% 
+alpha=
+
+L(1) = RevoluteMDH('alpha', alpha, 'a', a, 'd', d, 'offset', offset);
+myrobot = SerialLink(L,'name','myrobot')
+myrobot.teach('rpy/zyx')
