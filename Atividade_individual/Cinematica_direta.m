@@ -21,15 +21,50 @@ th4 = deg2rad(input("θ₄: "));
 th5 = deg2rad(input("θ₅: "));
 
 % Resto dos parâmetros
-alpha  = [0        ,-pi/2     , 0   , 0         , pi/2, 0]; % α (i-1) [rad]
-a      = [0        ,0         , l(3), l(4)      , 0  , 0];   % a (i-1) [mm]
+alphas = [0        ,-pi/2     , 0   , 0         , pi/2, 0]; % α (i-1) [rad]
+as     = [0        ,0         , l(3), l(4)      , 0  , 0];   % a (i-1) [mm]
 thetas = [th1      ,th2-(pi/2), th3 , th4+(pi/2), th5, 0];    % θ (i) [rad]
-d      = [l(1)+l(2),0         , 0   , 0         , l(5), l(6)]; % d (i) [mm]
+ds     = [l(1)+l(2),0         , 0   , 0         , l(5), l(6)]; % d (i) [mm]
+
+%% Ⅱ) Calculo da Matriz de Transformação Homogênea
+
+T = zeros(4, 4, 6);
+
+for ii=1:1:6
+    T(:,:,ii) = [cos(thetas(ii)), -sin(thetas(ii)), 0, as(ii); ...
+                (sin(thetas(ii))*cos(alphas(ii))), (cos(thetas(ii))*cos(alphas(ii))), (-sin(alphas(ii))), (-sin(alphas(ii))*ds(ii)); ...
+                (sin(thetas(ii))*sin(alphas(ii))), (cos(thetas(ii))*sin(alphas(ii))), (cos(alphas(ii))), (cos(alphas(ii))*ds(ii)); ...
+                0, 0, 0, 1];
+end
+
+Ttotal = T(:,:,1)*T(:,:,2)*T(:,:,3)*T(:,:,4)*T(:,:,5)*T(:,:,6);
+
+disp("--------------------------------------------------------");
+disp("Matriz de Transformação Homogênea do Robô RV-2AJ [5DOF]:");
+Ttotal = round(Ttotal,2,"decimals")
+
+%% Ⅲ) Cálculo das Coordenadas, Roll (A) e Pitch (B);
+Yd = Ttot(2, 4);
+Zd = Ttot(3, 4);
+B = rad2deg(th2+th3+th4);
+A = rad2deg(th5+th1*cos(deg2rad(B)));
+fprintf("\n\nPosição e Orientação do Robô - conforme Teach Pendant: \n\n");
+fprintf("Xd = ");
+disp(Xd)
+fprintf("Yd = ");
+disp(Yd)
+fprintf("Zd = ");
+disp(Zd)
+fprintf("A = ");
+disp(A)
+fprintf("B = ");
+disp(B)
 
 
 
 
-offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
+
+% offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
 
 
 
