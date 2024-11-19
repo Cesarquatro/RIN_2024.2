@@ -1,0 +1,28 @@
+clc; clear; close all;
+% Carlos Augusto Fernandes Leitão        - 211270628
+% Cesar Augusto Mendes Cordeiro da Silva - 211270121
+% Guilherme Bueno Guidetti               - 211270601
+% Lucas de Camargo Mainente              - 211270661
+% Rafael Kenji Issaka                    - 201270072
+% Prof. Dr. Maurício Becerra Vargas
+% Robótica Industrial 2024.2
+
+%% Cinemática Direta!
+
+
+
+
+% offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
+
+
+%% Uma hora:
+% L = cell(1, length(l)); % Use uma célula ao invés de um vetor numérico
+% 
+% for i = 1:1:length(l)
+%     L{i} = RevoluteMDH('alpha', alpha(i), 'a', a(i), 'd', d(i), 'offset', offset(i));
+% end
+% L = [L{:}];
+% 
+% myrobot = SerialLink(L,'name','myrobot[5DOF]')
+% myrobot.teach('rpy/zyx')
+% q = L.getpos()
