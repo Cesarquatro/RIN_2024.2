@@ -26,7 +26,7 @@ as     = [0        ,0         , l(3), l(4)      , 0  , 0];   % a (i-1) [mm]
 thetas = [th1      ,th2-(pi/2), th3 , th4+(pi/2), th5, 0];    % θ (i) [rad]
 ds     = [l(1)+l(2),0         , 0   , 0         , l(5), l(6)]; % d (i) [mm]
 
-%% Ⅱ)
+%% Ⅱ) Calculo da Matriz de Transformação Homogênea
 
 T = zeros(4, 4, 6);
 
@@ -38,12 +38,27 @@ for ii=1:1:6
 end
 
 Ttotal = T(:,:,1)*T(:,:,2)*T(:,:,3)*T(:,:,4)*T(:,:,5)*T(:,:,6);
-Ttotal = round(Ttotal,2,"decimals");
-disp("Matriz de Transformação Homogênea do Robô:");
-disp(Ttotal)
+
+disp("------------------------------------------------------------------------");
+disp("Matriz de Transformação Homogênea do Robô RV-2AJ [5DOF]:");
+Ttotal = round(Ttotal,2,"decimals")
+
+%% Ⅲ) Cálculo das Coordenadas, Roll (A) e Pitch (B);
+X = Ttotal(1, 4);
+Y = Ttotal(2, 4);
+Z = Ttotal(3, 4);
+Roll = rad2deg(th2 + th3 + th4);
+
+Pitch = rad2deg(th5 + th1 * cos(deg2rad(Roll)));
+fprintf("A");
+fprintf("b")
+disp("------------------------------------------------------------------------");
+disp("Posição [mm] e Orientação [∘] do RV-2AJ [5DOF] - conforme Teach Pendant:");
 
 
-offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
+
+
+% offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
 
 
 

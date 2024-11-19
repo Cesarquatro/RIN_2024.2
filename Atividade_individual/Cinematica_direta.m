@@ -10,7 +10,7 @@ clc; clear; close all;
 %% Cinemática Direta!
 %% Ⅰ) Difinição dos Parâmetros:
 % Comprimentos
-l      = [166      , 135 ,250  , 160  , 72   , 106.5]; %[mm]
+l      = [166      , 135 ,250  , 160  , 72   , 104.64]; %[mm]
 
 % Entrada dos ângulos das Juntas em graus pelo usuário:
 disp("Coloque os ângulos das juntas em graus:")
@@ -39,27 +39,24 @@ end
 
 Ttotal = T(:,:,1)*T(:,:,2)*T(:,:,3)*T(:,:,4)*T(:,:,5)*T(:,:,6);
 
-disp("--------------------------------------------------------");
+disp("---------------------------------------------------------------");
 disp("Matriz de Transformação Homogênea do Robô RV-2AJ [5DOF]:");
 Ttotal = round(Ttotal,2,"decimals")
 
-%% Ⅲ) Cálculo das Coordenadas, Roll (A) e Pitch (B);
-Yd = Ttot(2, 4);
-Zd = Ttot(3, 4);
-B = rad2deg(th2+th3+th4);
-A = rad2deg(th5+th1*cos(deg2rad(B)));
-fprintf("\n\nPosição e Orientação do Robô - conforme Teach Pendant: \n\n");
-fprintf("Xd = ");
-disp(Xd)
-fprintf("Yd = ");
-disp(Yd)
-fprintf("Zd = ");
-disp(Zd)
-fprintf("A = ");
-disp(A)
-fprintf("B = ");
-disp(B)
+%% Ⅲ) Cálculo das Coordenadas, Roll (B) e Pitch (A);
+X = Ttotal(1, 4);
+Y = Ttotal(2, 4);
+Z = Ttotal(3, 4);
+Roll = rad2deg(th2 + th3 + th4);
 
+Pitch = rad2deg(th5 + th1 * cos(deg2rad(Roll)));
+disp("---------------------------------------------------------------");
+disp("Posição e Orientação do RV-2AJ [5DOF] - Conforme Teach Pendant:");
+fprintf('X         = %.2f mm\n', X);
+fprintf('Y         = %.2f mm\n', Y);
+fprintf('Z         = %.2f mm\n', Z);
+fprintf('Pitch (A) = %.2f ∘\n', Pitch);
+fprintf('Roll  (B) = %.2f ∘\n', Roll);
 
 
 
