@@ -5,7 +5,7 @@ clc; clear; close all;
 % Lucas de Camargo Mainente              - 211270661
 % Rafael Kenji Issaka                    - 201270072
 % Prof. Dr. Maurício Becerra Vargas
-% Robótica Industrial
+% Robótica Industrial 2024.2
 
 %% Cinemática Direta!
 %% Ⅰ) Difinição dos Parâmetros:
@@ -83,30 +83,3 @@ disp("Ângulos de Euler do RV-2AJ [5DOF]:");
 fprintf("θX = %.2f ∘\n", thX);
 fprintf("θY = %.2f ∘\n", thY);
 fprintf("θZ = %.2f ∘\n", thZ);
-
-
-
-% offset = [l(1)+l(2), 0    , 0   , 0    , l(3) , l(6)]; %
-
-
-
-
-
-
-
-
-
-
-
-
-%% Uma hora:
-% L = cell(1, length(l)); % Use uma célula ao invés de um vetor numérico
-% 
-% for i = 1:1:length(l)
-%     L{i} = RevoluteMDH('alpha', alpha(i), 'a', a(i), 'd', d(i), 'offset', offset(i));
-% end
-% L = [L{:}];
-% 
-% myrobot = SerialLink(L,'name','myrobot[5DOF]')
-% myrobot.teach('rpy/zyx')
-% q = L.getpos()
