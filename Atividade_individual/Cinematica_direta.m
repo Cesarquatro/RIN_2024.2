@@ -10,7 +10,7 @@ clc; clear; close all;
 %% Cinemática Direta!
 %% Ⅰ) Difinição dos Parâmetros:
 % Comprimentos
-l      = [166      , 135 ,250  , 160  , 72   , 104.64]; %[mm]
+l      = [166      , 135 ,250  , 160  , 72   , 105.64]; %[mm]
 
 % Entrada dos ângulos das Juntas em graus pelo usuário:
 disp("Coloque os ângulos das juntas em graus:")
@@ -48,8 +48,8 @@ X = Ttotal(1, 4);
 Y = Ttotal(2, 4);
 Z = Ttotal(3, 4);
 Roll = rad2deg(th2 + th3 + th4);
-
 Pitch = rad2deg(th5 + th1 * cos(deg2rad(Roll)));
+
 disp("---------------------------------------------------------------");
 disp("Posição e Orientação do RV-2AJ [5DOF] - Conforme Teach Pendant:");
 fprintf('X         = %.2f mm\n', X);
@@ -58,6 +58,31 @@ fprintf('Z         = %.2f mm\n', Z);
 fprintf('Pitch (A) = %.2f ∘\n', Pitch);
 fprintf('Roll  (B) = %.2f ∘\n', Roll);
 
+%% Ⅳ) Calculo dos Ângulos de Euler
+if Ttotal(3,1) < 1 
+    if Ttotal(3,1) > -1
+        thY = asin(Ttotal(3,1));
+        thZ = atan2(Ttotal(2,1), Ttotal(1,1));
+        thX = atan2(Ttotal(3,2), Ttotal(3,3));
+    else
+        thY = pi/2;
+        thZ = -atan2(Ttotal(2,3), Ttotal(2,2));
+        thX = 0;
+    end
+else
+    thY = -pi/2;
+    thZ = atan2(Ttotal(2,3), Ttotal(2,2));
+    thX = 0;
+end
+thX = rad2deg(thX);
+thY = -rad2deg(thY);
+thZ = rad2deg(thZ);
+
+disp("---------------------------------------------------------------");
+disp("Ângulos de Euler do RV-2AJ [5DOF]:");
+fprintf("θX = %.2f ∘\n", thX);
+fprintf("θY = %.2f ∘\n", thY);
+fprintf("θZ = %.2f ∘\n", thZ);
 
 
 
