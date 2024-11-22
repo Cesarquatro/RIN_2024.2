@@ -44,12 +44,10 @@ end
 myrobot = SerialLink(L,'name','myrobot');
 myrobot.teach('rpy/zyx')
 
-T = [ 1 0 0 PX;
-      0 1 0 PY;
-      0 0 1 PZ;
-      0 0 0 1]
-
-n = 0;
+% T = [ 1 0 0 PX;
+%       0 1 0 PY;
+%       0 0 1 PZ;
+%       0 0 0 1]
 
 % Ângulos iniciais de referência
 Q0 = [0, 0, 85*pi/180, 0, 0, 0]; % Chute inicial
