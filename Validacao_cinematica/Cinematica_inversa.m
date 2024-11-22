@@ -17,6 +17,10 @@ disp("Coloque as posições em mm do TCP:")
 PX = input("X: ");
 PY = input("Y: ");
 PZ = input("Z: ");
+disp("Coloque os ângulos de Euler do robô:");
+thz = deg2rad(input("thZ: "));
+thy = deg2rad(input("thY: "));
+thx = deg2rad(input("thX: "));
 
 % Resto dos parâmetros
 alphas = [0, -pi/2, 0, 0, pi/2, 0];       % α (i-1) [rad]
@@ -24,6 +28,15 @@ as     = [0, 0, l(3), l(4), 0, 0];        % a (i-1) [mm]
 %thetas = [th1, th2-(pi/2), th3, th4+(pi/2), th5, 0]; % θ (i) [rad]
 ds     = [l(1)+l(2), 0, 0, 0, l(5), l(6)]; % d (i) [mm]
 offsets = [0, -pi/2, 0, +pi/2, 0, 0];
+
+%% Ⅱ) Calculo da Matriz Inversa
+Tinv = [cos(thy)*cos(thz), cos(thz)*sin(thx)*sin(thy)-cos(thx)*sin(thz), ...
+        cos(thx)*cos(thz)*sin(thy)+sin(thx)*sin(thz), PX; ...
+        cos(thy)*sin(thz), cos(thx)*cos(thz)+sin(thx)*sin(thy)*sin(thz), ...
+        -cos(thz)*sin(thx)+cos(thx)*sin(thy)*sin(thz), PY; ...
+        -sin(thy), cos(thy)*sin(thx), cos(thx)*cos(thy), PZ; ...
+        0, 0, 0, 1];
+
 
 for ii=1:1:6
     L(ii) = RevoluteMDH('alpha',alphas(ii), 'a', as(ii), 'd', ds(ii), 'offset', offsets(ii));
@@ -39,11 +52,11 @@ T = [ 1 0 0 PX;
 n = 0;
 
 % Ângulos iniciais de referência
-Q0 = [0, 0, 0, 0, 0, 0]; % Chute inicial
+Q0 = [0, 0, 85*pi/180, 0, 0, 0]; % Chute inicial
 
 % Calculando os ângulos das juntas
 try
-    Qi = myrobot.ikunc(T, Q0); % Utilizando a cinemática inversa universal
+    Qi = myrobot.ikunc(Tinv, Q0); % Utilizando a cinemática inversa universal
 catch
     error("Não foi possível calcular a cinemática inversa para a posição fornecida.");
 end
