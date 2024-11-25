@@ -50,7 +50,8 @@ myrobot.teach('rpy/zyx')
 %       0 0 0 1]
 
 % Ângulos iniciais de referência
-Q0 = [0, 0, 85*pi/180, 0, 0, 0]; % Chute inicial
+% Q0 = [0, 0, 85*pi/180, 0, 0, 0]; % Chute inicial
+Q0 = [0, 0, 0, 0, 0, 0]; % Chute inicial
 
 % Calculando os ângulos das juntas
 try

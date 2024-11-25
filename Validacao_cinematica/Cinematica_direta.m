@@ -65,8 +65,8 @@ if Ttotal(3,1) < 1
         thZ = atan2(Ttotal(2,1), Ttotal(1,1));
         thX = atan2(Ttotal(3,2), Ttotal(3,3));
     else
-        thY = pi/2;
-        thZ = -atan2(Ttotal(2,3), Ttotal(2,2));
+        thY = -pi/2;
+        thZ = atan2(Ttotal(2,3), Ttotal(2,2));
         thX = 0;
     end
 else
